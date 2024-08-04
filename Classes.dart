@@ -1,56 +1,69 @@
 class Bankaccount{
   int? cardNumber;
   String? name;
-  double balance = 0;
+  double? balance;
+  // this. is important because it takes the assign the entered value to the new object from the class
+  Bankaccount({cardNumber, required this.name, required this.balance});
 
   deposite(double amount){
-    
+
+    double res = balance! + amount; 
+    return res;
+          
   }
   withdraw(double amount){
   
+    double res = balance! - amount; 
+    return res;
+          
   }
   checkBalance(){
 
+    double res = balance!; 
+    return res;
+          
   }
-  TransferMoney(String Account_other, double amount){
-
+  transferMoney(String Account_other, double amount){
+    double res = balance! - amount;
+    return res;
   }
 
 }
 
-class NormalAccount extends Bankaccount{
+// abstract class NormalAccount extends Bankaccount{
   
-  deposite(double amount){
-    balance = balance + amount;
-    return amount;
-  }
-  withdraw(double amount){
   
-  }
-  checkBalance(){
+//   deposite(double amount){
+//     balance = balance + amount;
+//     return amount;
+//   }
+//   withdraw(double amount){
+  
+//   }
+//   checkBalance(){
 
-  }
-  TransferMoney(String Account_other, double amount){
+//   }
+//   TransferMoney(String Account_other, double amount){
 
 
 
-  }
-}
+//   }
+// }
  
-class SavingAccount extends Bankaccount{
-  double? interest;
+// abstract class SavingAccount extends Bankaccount{
+//   double? interest;
 
-  deposite(double amount){
+//   deposite(double amount){
 
-  }
-  withdraw(double amount){
+//   }
+//   withdraw(double amount){
   
-  }
-  checkBalance(){
+//   }
+//   checkBalance(){
 
-  }
-  TransferMoney(String Account_other, double amount){
+//   }
+//   TransferMoney(String Account_other, double amount){
 
-  }
+//   }
 
-}
+// }
