@@ -3,7 +3,7 @@ class Bankaccount{
   String? name;
   double? balance;
   // this. is important because it takes the assign the entered value to the new object from the class
-  Bankaccount({cardNumber, required this.name, required this.balance});
+  Bankaccount({cardNumber, this.name, this.balance});
 
   deposite(double amount){
 
