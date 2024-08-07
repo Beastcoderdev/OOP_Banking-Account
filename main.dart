@@ -3,33 +3,47 @@ import 'dart:io';
 import 'Classes.dart';
 
 void main(){
-  
+
   //Loop the programe
-  Bankaccount p1 =Bankaccount(); // empty object before while loop so we can check if it is null or not
+    // Choose account type
+  
+
+   // empty object before while loop so we can check if it is null or not
+   
+    Bankaccount p1 = Bankaccount();
+  
 
   while(true){
+
     if(p1.name == null && p1.balance == null){//Heading of the programe
-    print('made by Antony');
-    print('\n\n-----------------------Bank------------------------\n');
+      print('made by Antony');
+      print('\n\n-----------------------Bank------------------------\n');
 
-    // account register //
-    stdout.write('your name: ');
-    String name = stdin.readLineSync() ?? '';
-    List<String> Firstname = name.split(' ');
+      // account register //
+      stdout.write('your name: ');
+      String name = stdin.readLineSync() ?? '';
+      List<String> Firstname = name.split(' ');
 
-    stdout.write('Enter money to account: ');
-    double balance = double.tryParse(stdin.readLineSync()!) ?? 0;
+      stdout.write('Enter money to account: ');
+      double balance = double.tryParse(stdin.readLineSync()!) ?? 0;
 
 
-    // take a template from class
-    p1 =Bankaccount(name: Firstname[0], balance: balance);
+      // choose account type ( saving / normal )
+      print('what is the type of your account?');
+      print('\n  a) Normal account \n  b) Saving account ');
+
+      String? res = stdin.readLineSync() ?? "Sorry we didn't understand your input";
+
+      // take a template from class and instance it from a specific class
+      (res.toLowerCase() =='a') ? p1 = NormalAccount(name: Firstname[0], balance: balance) : p1 = SavingAccount(name: Firstname[0], balance: balance);
+      
+      // take a template from class ( instance it from super class )
+      // p1 =Bankaccount(name: Firstname[0], balance: balance);
     }
     
-
     print('\n-----------Welcome to the Bank-----------\n'); 
-
     
-    // 
+    // Welcoming
     print("Hello, ${p1.name}");
     print("your balance is ${p1.balance}");
       
@@ -42,13 +56,10 @@ void main(){
       3:'check Balance',
       4:'transfer',
     };
-
     task_title.forEach((key, value){
       print('$key) $value');
-      
     });
 
-    
     print('\n-----------------------------------------------------\n');
 
     stdout.write('choose your operation: ');
@@ -56,10 +67,8 @@ void main(){
 
 
 
-    // methods
-
-
-    switch(operation){
+    if(p1 == NormalAccount() || p1 == SavingAccount()){    
+      switch(operation){
       case 1:
         print('\n********deposite operation********'); 
 
@@ -67,7 +76,8 @@ void main(){
         double amount = double.tryParse(stdin.readLineSync()!) ?? 0;
         
         print("Done, your balance is: ${p1.deposite(amount)}");
-       
+
+
       case 2:
         print('\n********Withdraw operation********'); 
 
@@ -76,10 +86,12 @@ void main(){
         
         print("Done, your balance is: ${p1.withdraw(amount)}");
 
+
       case 3:
         print('\n********Check balance operation********'); 
         
         print("your balance is: ${p1.checkBalance()}");
+        
 
       case 4:
         print('\n********Transfer operation********'); 
@@ -91,18 +103,22 @@ void main(){
         stdout.write('\n\nEnter the amount: ');
         double amount = double.tryParse(stdin.readLineSync()!) ?? 0;
         // the money transfered to. account
-        Bankaccount p2 = Bankaccount(name: Firstname_ao[0], balance: amount); 
+        NormalAccount p2 = NormalAccount(name: Firstname_ao[0], balance: amount); 
 
-        print("Done, your balance: ${p1.transferMoney(Account_other, amount)}");
-        print("your transfered ${p2.balance} to ${p2.name}");
-        
+        if(p1.balance! >= amount){
+          print("Done, your balance: ${p1.transferMoney(Account_other, amount)}");
+          print("your transfered ${p2.balance} to ${p2.name}");
+        } else {
+          print("Invaild operation");
+        }
+                
       case 0:
         print("\nThis programe was written by Antony Hany \nI love flutter 😜");
         break;
-      default: 
-        print('Invaild programe');
-        break;
-      }// end of the main switch of (task)
+
+      }// end of the main switch of (task)}
+    // methods
+
 
 
     // End screen
@@ -116,7 +132,5 @@ void main(){
         break;
       }
     } 
-
-  
-    
+  }
 } // end of main method

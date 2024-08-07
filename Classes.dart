@@ -6,64 +6,84 @@ class Bankaccount{
   Bankaccount({cardNumber, this.name, this.balance});
 
   deposite(double amount){
-
     double res = balance! + amount; 
-    return res;
-          
+    return res;      
   }
   withdraw(double amount){
-  
-    double res = balance! - amount; 
-    return res;
-          
+    if (amount <= balance!){
+      double res = balance! - amount; 
+      return res;
+    } else{
+      print("Invaild operation");
+      return balance!;
+    }
   }
   checkBalance(){
-
     double res = balance!; 
-    return res;
-          
+    return res;     
   }
   transferMoney(String Account_other, double amount){
-    double res = balance! - amount;
-    return res;
+    if (amount <= balance!){
+      double res = balance! - amount;
+      return res;
+    } else{
+      print("Invaild operation");
+      return balance!;
+    }
   }
 
 }
 
-// abstract class NormalAccount extends Bankaccount{
+class NormalAccount extends Bankaccount{
   
-  
-//   deposite(double amount){
-//     balance = balance + amount;
-//     return amount;
-//   }
-//   withdraw(double amount){
-  
-//   }
-//   checkBalance(){
+  NormalAccount ({super.cardNumber, super.name, super.balance}); // constructor 
+  @override
+  deposite(double amount) {
+    return super.deposite(amount);
+  }
+  @override
+  withdraw(double amount) {
+    return super.withdraw(amount);
+  }
+  @override
+  checkBalance() {
+    return super.checkBalance();
+  }
+  @override
+  transferMoney(String Account_other, double amount) {
+    return super.transferMoney(Account_other, amount);
+  }
 
-//   }
-//   TransferMoney(String Account_other, double amount){
-
-
-
-//   }
-// }
+}
  
-// abstract class SavingAccount extends Bankaccount{
-//   double? interest;
+class SavingAccount extends Bankaccount{
+  SavingAccount ({super.cardNumber, super.name, super.balance}); // constructor 
+  double interest = 100;
 
-//   deposite(double amount){
-
-//   }
-//   withdraw(double amount){
-  
-//   }
-//   checkBalance(){
-
-//   }
-//   TransferMoney(String Account_other, double amount){
-
-//   }
-
-// }
+  deposite(double amount){
+    double res = balance! + amount + interest; 
+    return res;      
+  }
+  withdraw(double amount){
+    if (amount <= balance!){
+      double res = balance! - amount; 
+      return res;
+    } else{
+      print("Invaild operation");
+      return balance!;
+    }
+  }
+  checkBalance(){
+    double res = balance!; 
+    return res;     
+  }
+  transferMoney(String Account_other, double amount){
+    if (amount <= balance!){
+      double res = balance! - amount + interest;
+      return res;
+    } else{
+      print("Invaild operation");
+      return balance!;
+    }
+  }
+}
